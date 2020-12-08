@@ -3,7 +3,10 @@ const express = require('express'),
   morgan = require('morgan'),
   cookieParser = require('cookie-parser'),
   openRoutes = require('./routes/open'),
+  userRouter = require('./routes/secure/users'),
+  passport = require('./middleware/authentication'),
   path = require('path'),
+  fileUpload = require('express-fileupload'),
   app = express();
 
 //Parse incoming JSON into objects
@@ -21,7 +24,17 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '..', 'client', 'build')));
 }
 
-// We'll add more stuff in between in a little bit.
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/images',
+  })
+);
+//  Authentication Middleware
+app.use('/api/*', passport.authenticate('jwt', { session: false }));
+
+// Authenticated Routes
+app.use('/api/users', userRouter);
 
 if (process.env.NODE_ENV === 'production') {
   // Handle React routing, return all requests to React app

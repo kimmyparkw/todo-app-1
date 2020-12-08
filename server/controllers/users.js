@@ -1,4 +1,5 @@
 const User = require('../db/models/user'),
+  cloudinary = require('cloudinary').v2,
   { sendWelcomeEmail, sendCancellationEmail } = require('../emails/');
 
 /**
@@ -125,5 +126,22 @@ exports.deleteUser = async (req, res) => {
     res.json({ message: 'user deleted' });
   } catch (error) {
     res.status(500).json({ error: error.toString() });
+  }
+};
+/**
+ * @param {image}
+ * Upload avatar
+ * @return {}
+ */
+exports.uploadAvatar = async (req, res) => {
+  try {
+    const response = await cloudinary.uploader.upload(
+      req.files.avatar.tempFilePath
+    );
+    req.user.avatar = response.secure_url;
+    await req.user.save();
+    res.json(response);
+  } catch (e) {
+    res.json({ error: e.toString() });
   }
 };

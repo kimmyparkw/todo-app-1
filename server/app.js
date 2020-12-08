@@ -6,6 +6,7 @@ const express = require('express'),
   userRouter = require('./routes/secure/users'),
   passport = require('./middleware/authentication'),
   path = require('path'),
+  fileUpload = require('express-fileupload'),
   app = express();
 
 //Parse incoming JSON into objects
@@ -23,6 +24,12 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, '..', 'client', 'build')));
 }
 
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/images',
+  })
+);
 //  Authentication Middleware
 app.use('/api/*', passport.authenticate('jwt', { session: false }));
 

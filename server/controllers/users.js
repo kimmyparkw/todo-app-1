@@ -1,8 +1,9 @@
-const User = require('../db/models/user');
+const User = require('../db/models/user'),
+  { sendWelcomeEmail } = require('../emails/');
 
 /**
- * @param {name, email, password}
  * Create a user
+ * @param {name, email, password}
  * @return {user}
  */
 exports.createUser = async (req, res) => {
@@ -14,6 +15,7 @@ exports.createUser = async (req, res) => {
       password,
     });
     const token = await user.generateAuthToken();
+    sendWelcomeEmail(user.email, user.name);
     res.cookie('jwt', token, {
       httpOnly: true,
       sameSite: 'Strict',

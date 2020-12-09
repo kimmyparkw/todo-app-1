@@ -4,6 +4,7 @@ const express = require('express'),
   cookieParser = require('cookie-parser'),
   openRoutes = require('./routes/open'),
   userRouter = require('./routes/secure/users'),
+  taskRouter = require('./routes/secure/tasks'),
   passport = require('./middleware/authentication'),
   path = require('path'),
   fileUpload = require('express-fileupload'),
@@ -35,6 +36,7 @@ app.use('/api/*', passport.authenticate('jwt', { session: false }));
 
 // Authenticated Routes
 app.use('/api/users', userRouter);
+app.use('/api/tasks', taskRouter);
 
 if (process.env.NODE_ENV === 'production') {
   // Handle React routing, return all requests to React app

@@ -1,11 +1,15 @@
 const router = require('express').Router(),
+  { isAdmin } = require('../../middleware/authorization/'),
   {
     createTask,
     getAllTasks,
     getSpecificTask,
     updateTask,
     deleteTask,
+    fetchAllTasks,
   } = require('../../controllers/tasks');
+
+router.get('/all', isAdmin(), fetchAllTasks);
 
 router.post('/', createTask);
 

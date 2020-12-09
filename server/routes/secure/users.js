@@ -1,4 +1,5 @@
 const router = require('express').Router(),
+  { isAdmin } = require('../../middleware/authorization/'),
   {
     getCurrentUser,
     updateCurrentUser,
@@ -7,6 +8,7 @@ const router = require('express').Router(),
     deleteUser,
     uploadAvatar,
     updatePassword,
+    fetchAllUsers,
   } = require('../../controllers/users');
 
 router.get('/me', getCurrentUser);
@@ -16,5 +18,6 @@ router.post('/logoutAll', logoutAllDevices);
 router.delete('/', deleteUser);
 router.post('/avatar', uploadAvatar);
 router.put('/password', updatePassword);
+router.get('/all', isAdmin(), fetchAllUsers);
 
 module.exports = router;

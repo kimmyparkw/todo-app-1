@@ -2,7 +2,7 @@ const request = require('supertest'),
   app = require('../server/app'),
   User = require('../server/db/models/user');
 
-const { userOne, userOneId, setUpDatabase } = require('./fixtures/db');
+const { userOne, setUpDatabase } = require('./fixtures/db');
 
 beforeEach(setUpDatabase);
 
@@ -44,5 +44,17 @@ describe('users', () => {
         password: 'THISPASSWORDSUCKS',
       })
       .expect(400);
+  });
+
+  it('should get profile info for authenticated user', async () => {
+    const response = await request(app)
+      .get('/api/users/me')
+      .set('Authorization', `jwt ${userOne.tokens[0].token}`)
+      .send()
+      .expect(200);
+  });
+
+  it('should NOT get profile info for an unauthenticateduser', async () => {
+    await request(app).get('/api/users/me').send().expect(401);
   });
 });

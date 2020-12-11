@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
+import axios from 'axios';
 
-const Signup = () => {
+const Signup = ({ history }) => {
   const [formData, setFormData] = useState(null);
+
+  const { setCurrentUser } = useContext(AppContext);
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleSignUp = async e => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/users', formData);
+      setCurrentUser(response.data.user);
+      sessionStorage.setItem('user', response.data);
+      history.push('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container className='container d-flex flex-column align-items-center justify-content-center fullscreen'>
       <h1>Task Manager</h1>
-      <Form style={{ width: 300 }}>
+      <Form style={{ width: 300 }} onSubmit={handleSignUp}>
         <Form.Group>
           <Form.Label htmlFor='fullName'>Full Name</Form.Label>
           <Form.Control

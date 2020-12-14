@@ -5,6 +5,10 @@ const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [tasks, setTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [search, setSearch] = useState('');
+  const [currentFilter, setCurrentFilter] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +29,20 @@ const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ currentUser, setCurrentUser, loading, setLoading }}
+      value={{
+        currentUser,
+        setCurrentUser,
+        loading,
+        setLoading,
+        tasks,
+        setTasks,
+        filteredTasks,
+        setFilteredTasks,
+        search,
+        setSearch,
+        currentFilter,
+        setCurrentFilter,
+      }}
     >
       {children}
     </AppContext.Provider>

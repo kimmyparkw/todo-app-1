@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import DeleteButton from './DeleteButton';
 
 const Task = ({ tasks }) => {
   return (
@@ -18,7 +19,9 @@ const Task = ({ tasks }) => {
               ? moment(task.dueDate).format('MMM Do, YYYY')
               : 'No Due Date.'}
           </td>
-          <td>{/* ...pending logic */}</td>
+          <td>
+            <DeleteButton id={task._id} />
+          </td>
         </tr>
       ))}
     </>

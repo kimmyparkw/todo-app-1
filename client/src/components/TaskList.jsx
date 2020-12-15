@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { Container, Table } from 'react-bootstrap';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
+import Task from './Task';
 
 const TaskList = () => {
   const {
@@ -14,9 +15,10 @@ const TaskList = () => {
 
   useEffect(() => {
     axios
-      .get('/api/tasks?sortBy=dueDate:desc', { withCredentials: true })
+      .get('/api/tasks?sortBy=dueDate:asc', { withCredentials: true })
       .then(response => {
-        console.log(response.data);
+        setTasks(response.data);
+        setFilteredTasks(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -30,10 +32,12 @@ const TaskList = () => {
           <tr>
             <th>Description</th>
             <th>Due</th>
-            <th>Completed</th>
+            <th>Options</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <Task tasks={filteredTasks} />
+        </tbody>
       </Table>
     </Container>
   );

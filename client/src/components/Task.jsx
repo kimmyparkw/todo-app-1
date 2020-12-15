@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import DeleteButton from './DeleteButton';
+import CompleteButton from './CompleteButton';
 
 const Task = ({ tasks }) => {
   return (
@@ -21,6 +22,7 @@ const Task = ({ tasks }) => {
           </td>
           <td>
             <DeleteButton id={task._id} />
+            <CompleteButton task={task} />
           </td>
         </tr>
       ))}

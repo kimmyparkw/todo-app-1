@@ -3,6 +3,7 @@ import { Container, Table } from 'react-bootstrap';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
 import Task from './Task';
+import Search from './Search';
 
 const TaskList = () => {
   const {
@@ -27,6 +28,7 @@ const TaskList = () => {
 
   return (
     <Container>
+      <Search />
       <Table>
         <thead>
           <tr>

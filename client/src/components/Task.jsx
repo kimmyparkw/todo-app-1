@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import moment from 'moment';
 import DeleteButton from './DeleteButton';
 import CompleteButton from './CompleteButton';
+import { AppContext } from '../context/AppContext';
 
 const Task = ({ tasks }) => {
+  const { search } = useContext(AppContext);
+
+  const filteredTasks = tasks?.filter(task => {
+    return task.description.toLowerCase().includes(search.toLowerCase().trim());
+  });
+
   return (
     <>
-      {tasks.map(task => (
+      {filteredTasks.map(task => (
         <tr key={task._id}>
           <td>
             {task.completed ? (

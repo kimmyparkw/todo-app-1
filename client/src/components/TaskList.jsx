@@ -23,7 +23,7 @@ const TaskList = () => {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [setTasks, setFilteredTasks, search, loading]);
 
   return (
     <Container>

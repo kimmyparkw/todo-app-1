@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { AppContextProvider } from './context/AppContext';
 import PrivateRoute from './components/PrivateRoute';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <PrivateRoute exact path='/' component={Home} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
+          <Route exact path='/profile' component={Profile} />
         </Switch>
       </BrowserRouter>
     </AppContextProvider>

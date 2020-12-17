@@ -57,6 +57,9 @@ const Login = ({ history }) => {
       <Link className='mt-4' to='/signup'>
         Need an account? Sign up.
       </Link>
+      <Link className='mt-4' to='/forgotpassword'>
+        I forgot my password!
+      </Link>
     </Container>
   );
 };

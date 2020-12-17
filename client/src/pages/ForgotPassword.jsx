@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import Navigation from '../components/Navigation';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +19,6 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <Navigation />
       <Container className='container d-flex flex-column align-items-center justify-content-center fullscreen'>
         <h1 className='mb-4'>Reset Password</h1>
         <Form style={{ width: 300 }} onSubmit={handleSubmit}>

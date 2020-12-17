@@ -7,6 +7,8 @@ import { AppContextProvider } from './context/AppContext';
 import PrivateRoute from './components/PrivateRoute';
 import Profile from './pages/Profile';
 import Calendar from './components/Calendar';
+import ForgotPassword from './pages/ForgotPassword';
+import UpdatePassword from './pages/UpdatePassword';
 
 function App() {
   return (
@@ -16,8 +18,10 @@ function App() {
           <PrivateRoute exact path='/' component={Home} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
-          <PrivateRoute exact path='/profile' component={Profile} />
           <PrivateRoute exact path='/calendar' component={Calendar} />
+          <Route exact path='/forgotpassword' component={ForgotPassword} />
+          <Route exact path='/updatepassword' component={UpdatePassword} />
+          <PrivateRoute exact path='/profile' component={Profile} />
         </Switch>
       </BrowserRouter>
     </AppContextProvider>

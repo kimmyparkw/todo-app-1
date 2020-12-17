@@ -20,7 +20,11 @@ function App() {
           <Route exact path='/signup' component={Signup} />
           <PrivateRoute exact path='/calendar' component={Calendar} />
           <Route exact path='/forgotpassword' component={ForgotPassword} />
-          <Route exact path='/updatepassword' component={UpdatePassword} />
+          <PrivateRoute
+            exact
+            path='/updatepassword'
+            component={UpdatePassword}
+          />
           <PrivateRoute exact path='/profile' component={Profile} />
         </Switch>
       </BrowserRouter>

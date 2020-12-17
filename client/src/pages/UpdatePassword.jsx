@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const UpdatePassword = ({ history }) => {
   const [password, setPassword] = useState(null);
@@ -12,7 +13,7 @@ const UpdatePassword = ({ history }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     if (password.password !== password.confirmPassword) {
-      throw Error('Error', 'Oops, passwords must match.');
+      swal('Error', 'Passwords must match.');
     }
 
     try {
@@ -21,9 +22,10 @@ const UpdatePassword = ({ history }) => {
         { password: password.password },
         { withCredentials: true }
       );
+      swal('Updated!', 'Your password has been updated', 'success');
       history.push('/login');
     } catch (error) {
-      console.log(error);
+      swal('Oops!', 'Something went wrong.');
     }
   };
 

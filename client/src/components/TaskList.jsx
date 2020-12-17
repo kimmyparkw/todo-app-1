@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AppContext } from '../context/AppContext';
 import Task from './Task';
 import Search from './Search';
+import swal from 'sweetalert';
 
 const TaskList = () => {
   const {
@@ -22,7 +23,7 @@ const TaskList = () => {
         setFilteredTasks(response.data);
       })
       .catch(error => {
-        console.log(error);
+        swal('Oops!', 'something went wrong');
       });
   }, [setTasks, setFilteredTasks, search, loading]);
 

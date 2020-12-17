@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
-
+import swal from 'sweetalert';
 const TaskForm = () => {
   const [taskData, setTaskData] = useState(null);
 
@@ -23,12 +23,12 @@ const TaskForm = () => {
         withCredentials: true,
         data: taskData,
       });
-      console.log(response);
+      swal('New task!', 'Your task has been added', 'success');
       setTaskData(null);
       setLoading(false);
       form.reset();
     } catch (error) {
-      console.log(error);
+      swal('Oops', 'Something went wrong');
     }
   };
 

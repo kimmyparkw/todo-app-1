@@ -3,6 +3,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const Login = ({ history }) => {
   const [formData, setFormData] = useState(null);
@@ -22,7 +23,7 @@ const Login = ({ history }) => {
       sessionStorage.setItem('user', response.data);
       history.push('/');
     } catch (error) {
-      console.log(error);
+      swal(`Oops!`, 'Something went wrong.');
     }
   };
 

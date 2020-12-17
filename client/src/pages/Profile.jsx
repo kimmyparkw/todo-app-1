@@ -4,6 +4,7 @@ import wyncode from '../assets/images/wyncode.png';
 import Navigation from '../components/Navigation';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const Profile = ({ history: { push } }) => {
   const { currentUser, setCurrentUser, setLoading } = useContext(AppContext);
@@ -26,8 +27,9 @@ const Profile = ({ history: { push } }) => {
         },
       });
       setCurrentUser({ ...currentUser, avatar: updatedUser.data.secureURL });
+      swal('Sweet!', 'Your image has been updated!', 'success');
     } catch (error) {
-      console.log(error);
+      swal('Oops', 'Something went wrong.');
     }
   };
 
@@ -39,17 +41,33 @@ const Profile = ({ history: { push } }) => {
   const handleDelete = async e => {
     setLoading(true);
     try {
-      await axios({
-        method: 'DELETE',
-        url: '/api/users',
-        withCredentials: true,
+      const willDelete = await swal({
+        title: 'Are you sure?',
+        text: 'Once deleted, you will not be able to recover this account!',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
       });
-      setLoading(false);
-      sessionStorage.removeItem('user');
-      setCurrentUser(null);
-      push('/login');
+      if (willDelete) {
+        try {
+          await axios({
+            method: 'DELETE',
+            url: '/api/users',
+            withCredentials: true,
+          });
+          swal('Poof!', 'Your account has been deleted.', { icon: 'success' });
+          setLoading(false);
+          sessionStorage.removeItem('user');
+          setCurrentUser(null);
+          push('/login');
+        } catch (error) {
+          swal('Oops!', 'Something went wrong.');
+        }
+      } else {
+        swal('Your account is safe!');
+      }
     } catch (error) {
-      console.log(error);
+      swal('Oops!', 'Something went wrong.');
     }
   };
 

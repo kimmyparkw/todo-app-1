@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
+import swal from 'sweetalert';
 
 const CompleteTask = ({ task }) => {
   const { setLoading } = useContext(AppContext);
@@ -14,9 +15,10 @@ const CompleteTask = ({ task }) => {
         withCredentials: true,
         data: { completed: !task.completed },
       });
+      swal('Updated', 'Your task has been updated', 'success');
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      swal(`Oops!`, 'Something went wrong.');
     }
   };
 

@@ -3,6 +3,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const Signup = ({ history }) => {
   const [formData, setFormData] = useState(null);
@@ -21,7 +22,7 @@ const Signup = ({ history }) => {
       sessionStorage.setItem('user', response.data);
       history.push('/');
     } catch (error) {
-      console.log(error);
+      swal('SignUp Error: ', error.toString());
     }
   };
 

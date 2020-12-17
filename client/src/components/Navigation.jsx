@@ -4,6 +4,7 @@ import { AppContext } from '../context/AppContext';
 import { Navbar, Nav, Dropdown, Image } from 'react-bootstrap';
 import Logout from './Logout';
 import dueFilter from '../helpers/DueFilter';
+import Calendar from './Calendar';
 
 const Navigation = () => {
   const { currentUser, tasks, setFilteredTasks, setCurrentFilter } = useContext(
@@ -49,6 +50,17 @@ const Navigation = () => {
           >
             Pending
           </Nav.Item>
+          <Nav.Item
+            className='ml-2'
+            onMouseEnter={() => setActive({ ...active, calendar: true })}
+            onMouseLeave={() => setActive({ ...active, calendar: false })}
+            as={Link}
+            to='/calendar'
+          >
+            Calendar
+          </Nav.Item>
+        </Nav>
+        <Nav>
           <Nav.Item>
             <Dropdown drop='down' className='mr-1'>
               <Dropdown.Toggle variant=''>
